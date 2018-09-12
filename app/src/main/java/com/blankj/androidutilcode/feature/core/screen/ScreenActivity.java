@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.blankj.androidutilcode.R;
 import com.blankj.androidutilcode.base.BaseActivity;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.SpanUtils;
 
@@ -50,6 +51,7 @@ public class ScreenActivity extends BaseActivity {
         findViewById(R.id.btn_set_portrait).setOnClickListener(this);
         findViewById(R.id.btn_screenshot).setOnClickListener(this);
         findViewById(R.id.btn_set_sleep_duration).setOnClickListener(this);
+        findViewById(R.id.btn_test_adapt_screen).setOnClickListener(this);
 
         updateAboutScreen();
     }
@@ -77,6 +79,9 @@ public class ScreenActivity extends BaseActivity {
             case R.id.btn_set_sleep_duration:
                 ScreenUtils.setSleepDuration(100000);
                 updateAboutScreen();
+                break;
+            case R.id.btn_test_adapt_screen:
+                ScreenAdaptActivity.start(this);
                 break;
         }
     }

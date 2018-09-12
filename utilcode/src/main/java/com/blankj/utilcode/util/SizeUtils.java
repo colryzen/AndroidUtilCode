@@ -1,5 +1,7 @@
 package com.blankj.utilcode.util;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
@@ -164,6 +166,9 @@ public final class SizeUtils {
         return new int[]{view.getMeasuredWidth(), view.getMeasuredHeight()};
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    // interface
+    ///////////////////////////////////////////////////////////////////////////
 
     public interface onGetSizeListener {
         void onGetSize(View view);

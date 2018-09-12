@@ -1,6 +1,7 @@
 package com.blankj.utilcode.util;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -8,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.blankj.utilcode.constant.MemoryConstants;
@@ -126,7 +128,7 @@ public final class ConvertUtils {
         if (len <= 0) return "";
         char[] ret = new char[len << 1];
         for (int i = 0, j = 0; i < len; i++) {
-            ret[j++] = hexDigits[bytes[i] >>> 4 & 0x0f];
+            ret[j++] = hexDigits[bytes[i] >> 4 & 0x0f];
             ret[j++] = hexDigits[bytes[i] & 0x0f];
         }
         return new String(ret);
@@ -614,6 +616,10 @@ public final class ConvertUtils {
         final float fontScale = Utils.getApp().getResources().getDisplayMetrics().scaledDensity;
         return (int) (pxValue / fontScale + 0.5f);
     }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // other utils methods
+    ///////////////////////////////////////////////////////////////////////////
 
     private static boolean isSpace(final String s) {
         if (s == null) return true;

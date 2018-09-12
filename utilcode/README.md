@@ -2,21 +2,8 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.16.4'
+implementation 'com.blankj:utilcode:1.20.1'
 ```
-
-
-## How to use
-
-```java
-// init it in the function of onCreate in ur Application
-Utils.init(application);
-```
-
-
-## Proguard
-
-U needn't do anything, because I add `consumerProguardFiles 'proguard-rules.pro'` in build.gradle.
 
 
 ## APIs
@@ -64,6 +51,8 @@ getAppVersionName
 getAppVersionCode
 getAppSignature
 getAppSignatureSHA1
+getAppSignatureSHA256
+getAppSignatureMD5
 getAppInfo
 getAppsInfo
 ```
@@ -90,7 +79,7 @@ getNavBarColor
 isNavBarVisible
 ```
 
-* ### About Cache -> [CacheUtils.java][cache.java] -> [Test][cache.test]
+* ### About CacheDisk -> [CacheDiskUtils.java][cache_disk.java] -> [Test][cache_disk.test]
 ```
 getInstance
 Instance.put
@@ -103,6 +92,35 @@ Instance.getDrawable
 Instance.getParcelable
 Instance.getSerializable
 Instance.getCacheSize
+Instance.getCacheCount
+Instance.remove
+Instance.clear
+```
+
+* ### About CacheDouble -> [CacheDoubleUtils.java][cache_double.java] -> [Test][cache_double.test]
+```
+getInstance
+Instance.put
+Instance.getBytes
+Instance.getString
+Instance.getJSONObject
+Instance.getJSONArray
+Instance.getBitmap
+Instance.getDrawable
+Instance.getParcelable
+Instance.getSerializable
+Instance.getCacheDiskSize
+Instance.getCacheDiskCount
+Instance.getCacheMemoryCount
+Instance.remove
+Instance.clear
+```
+
+* ### About CacheMemory -> [CacheMemoryUtils.java][cache_memory.java] -> [Test][cache_memory.test]
+```
+getInstance
+Instance.put
+Instance.get
 Instance.getCacheCount
 Instance.remove
 Instance.clear
@@ -318,6 +336,7 @@ compressBySampleSize
 
 * ### About Intent -> [IntentUtils.java][intent.java]
 ```
+isIntentAvailable
 getInstallAppIntent
 getUninstallAppIntent
 getLaunchAppIntent
@@ -332,11 +351,14 @@ getCaptureIntent
 * ### About Keyboard -> [KeyboardUtils.java][keyboard.java] -> [Demo][keyboard.demo]
 ```
 showSoftInput
+showSoftInputUsingToggle
 hideSoftInput
+hideSoftInputUsingToggle
 toggleSoftInput
 isSoftInputVisible
 registerSoftInputChangedListener
 unregisterSoftInputChangedListener
+fixAndroidBug5497
 fixSoftInputLeaks
 clickBlankArea2HideSoftInput
 ```
@@ -357,6 +379,8 @@ Config.setConsoleFilter
 Config.setFileFilter
 Config.setStackDeep
 Config.setStackOffset
+Config.setSaveDays
+Config.addFormatter
 log
 v
 vTag
@@ -373,6 +397,14 @@ aTag
 file
 json
 xml
+```
+
+* ### About MetaData -> [MetaDataUtils.java][meta_data.java] -> [Demo][meta_data.demo]
+```
+getMetaDataInApp
+getMetaDataInActivity
+getMetaDataInService
+getMetaDataInReceiver
 ```
 
 * ### About Network -> [NetworkUtils.java][network.java] -> [Demo][network.demo]
@@ -392,6 +424,10 @@ getNetworkOperatorName
 getNetworkType
 getIPAddress
 getDomainAddress
+getIpAddressByWifi
+getGatewayByWifi
+getNetMaskByWifi
+getServerAddressByWifi
 ```
 
 * ### About Object -> [ObjectUtils.java][object.java] -> [Test][object.test]
@@ -402,6 +438,46 @@ equals
 requireNonNull
 getOrDefault
 hashCode
+```
+
+* ### About Path -> [PathUtils.java][path.java] -> [Demo][path.demo]
+```
+getRootPath
+getDataPath
+getDownloadCachePath
+getInternalAppDataPath
+getInternalAppCodeCacheDir
+getInternalAppCachePath
+getInternalAppDbsPath
+getInternalAppDbPath
+getInternalAppFilesPath
+getInternalAppSpPath
+getInternalAppNoBackupFilesPath
+getExternalStoragePath
+getExternalMusicPath
+getExternalPodcastsPath
+getExternalRingtonesPath
+getExternalAlarmsPath
+getExternalNotificationsPath
+getExternalPicturesPath
+getExternalMoviesPath
+getExternalDownloadsPath
+getExternalDcimPath
+getExternalDocumentsPath
+getExternalAppDataPath
+getExternalAppCachePath
+getExternalAppFilesPath
+getExternalAppMusicPath
+getExternalAppPodcastsPath
+getExternalAppRingtonesPath
+getExternalAppAlarmsPath
+getExternalAppNotificationsPath
+getExternalAppPicturesPath
+getExternalAppMoviesPath
+getExternalAppDownloadPath
+getExternalAppDcimPath
+getExternalAppDocumentsPath
+getExternalAppObbPath
 ```
 
 * ### About Permission -> [PermissionUtils.java][permission.java] -> [Demo][permission.demo]
@@ -420,6 +496,7 @@ request
 ```
 isPhone
 getDeviceId
+getSerial
 getIMEI
 getMEID
 getIMSI
@@ -459,6 +536,7 @@ isMobileExact
 isTel
 isIDCard15
 isIDCard18
+isIDCard18Exact
 isEmail
 isURL
 isZh
@@ -489,6 +567,9 @@ getScreenHeight
 getScreenDensity
 getScreenDensityDpi
 setFullScreen
+setNonFullScreen
+toggleFullScreen
+isFullScreen
 setLandscape
 setPortrait
 isLandscape
@@ -499,6 +580,11 @@ isScreenLock
 setSleepDuration
 getSleepDuration
 isTablet
+adaptScreen4VerticalSlide
+adaptScreen4HorizontalSlide
+cancelAdaptScreen
+restoreAdaptScreen
+isAdaptScreen
 ```
 
 * ### About SDCard -> [SDCardUtils.java][sdcard.java] -> [Demo][sdcard.demo]
@@ -563,7 +649,6 @@ setLineHeight
 setQuoteColor
 setLeadingMargin
 setBullet
-setIconMargin
 setFontSize
 setFontProportion
 setFontXProportion
@@ -697,7 +782,8 @@ cancel
 
 * ### About Uri -> [UriUtils.java][uri.java]
 ```
-getUriForFile
+file2Uri
+uri2File
 ```
 
 * ### About Zip -> [ZipUtils.java][zip.java] -> [Test][zip.test]
@@ -721,8 +807,14 @@ getComments
 [bar.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/BarUtils.java
 [bar.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/bar/BarActivity.java
 
-[cache.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CacheUtils.java
-[cache.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/CacheUtilsTest.java
+[cache_disk.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CacheDiskUtils.java
+[cache_disk.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/CacheDiskUtilsTest.java
+
+[cache_double.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CacheDoubleUtils.java
+[cache_double.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/CacheDoubleUtilsTest.java
+
+[cache_memory.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CacheMemoryUtils.java
+[cache_memory.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/CacheMemoryUtilsTest.java
 
 [clean.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CleanUtils.java
 [clean.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/clean/CleanActivity.java
@@ -766,11 +858,17 @@ getComments
 [log.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/LogUtils.java
 [log.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/log/LogActivity.java
 
+[meta_data.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/MetaDataUtils.java
+[meta_data.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/meta_data/MetaDataActivity.java
+
 [network.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/NetworkUtils.java
 [network.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/network/NetworkActivity.java
 
 [object.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ObjectUtils.java
 [object.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/ObjectUtilsTest.java
+
+[path.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/PathUtils.java
+[path.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/path/PathActivity.java
 
 [permission.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/PermissionUtils.java
 [permission.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/permission/PermissionActivity.java

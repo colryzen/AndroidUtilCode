@@ -1,11 +1,14 @@
 package com.blankj.androidutilcode.base;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+
+import com.blankj.utilcode.util.ScreenUtils;
 
 /**
  * <pre>
@@ -28,6 +31,7 @@ public abstract class BaseActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ScreenUtils.adaptScreen4VerticalSlide(this, 720);
         super.onCreate(savedInstanceState);
         mActivity = this;
         Bundle bundle = getIntent().getExtras();
@@ -37,6 +41,7 @@ public abstract class BaseActivity extends AppCompatActivity
         doBusiness();
     }
 
+    @SuppressLint("ResourceType")
     protected void setBaseView(@LayoutRes int layoutId) {
         if (layoutId <= 0) return;
         setContentView(mContentView = LayoutInflater.from(this).inflate(layoutId, null));

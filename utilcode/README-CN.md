@@ -2,21 +2,8 @@
 
 Gradle:
 ```groovy
-implementation 'com.blankj:utilcode:1.16.4'
+implementation 'com.blankj:utilcode:1.20.1'
 ```
-
-
-## How to use
-
-```java
-// init it in the function of onCreate in ur Application
-Utils.init(application);
-```
-
-
-## Proguard
-
-U needn't do anything, because I add `consumerProguardFiles 'proguard-rules.pro'` in build.gradle.
 
 
 ## APIs
@@ -64,6 +51,8 @@ getAppVersionName                 : 获取 App 版本号
 getAppVersionCode                 : 获取 App 版本码
 getAppSignature                   : 获取 App 签名
 getAppSignatureSHA1               : 获取应用签名的的 SHA1 值
+getAppSignatureSHA256             : 获取应用签名的的 SHA256 值
+getAppSignatureMD5                : 获取应用签名的的 MD5 值
 getAppInfo                        : 获取 App 信息
 getAppsInfo                       : 获取所有已安装 App 信息
 ```
@@ -90,7 +79,7 @@ getNavBarColor                       : 获取导航栏颜色
 isNavBarVisible                      : 判断导航栏是否可见
 ```
 
-* ### 缓存相关 -> [CacheUtils.java][cache.java] -> [Test][cache.test]
+* ### 磁盘缓存相关 -> [CacheDiskUtils.java][cache_disk.java] -> [Test][cache_disk.test]
 ```
 getInstance             : 获取缓存实例
 Instance.put            : 缓存中写入数据
@@ -106,6 +95,35 @@ Instance.getCacheSize   : 获取缓存大小
 Instance.getCacheCount  : 获取缓存个数
 Instance.remove         : 根据键值移除缓存
 Instance.clear          : 清除所有缓存
+```
+
+* ### 二级缓存相关 -> [CacheDoubleUtils.java][cache_double.java] -> [Test][cache_double.test]
+```
+getInstance                 : 获取缓存实例
+Instance.put                : 缓存中写入数据
+Instance.getBytes           : 缓存中读取字节数组
+Instance.getString          : 缓存中读取 String
+Instance.getJSONObject      : 缓存中读取 JSONObject
+Instance.getJSONArray       : 缓存中读取 JSONArray
+Instance.getBitmap          : 缓存中读取 Bitmap
+Instance.getDrawable        : 缓存中读取 Drawable
+Instance.getParcelable      : 缓存中读取 Parcelable
+Instance.getSerializable    : 缓存中读取 Serializable
+Instance.getCacheDiskSize   : 获取磁盘缓存大小
+Instance.getCacheDiskCount  : 获取磁盘缓存个数
+Instance.getCacheMemoryCount: 获取内存缓存个数
+Instance.remove             : 根据键值移除缓存
+Instance.clear              : 清除所有缓存
+```
+
+* ### 内存缓存相关 -> [CacheMemoryUtils.java][cache_memory.java] -> [Test][cache_memory.test]
+```
+getInstance           : 获取缓存实例
+Instance.put          : 缓存中写入数据
+Instance.get          : 缓存中读取字节数组
+Instance.getCacheCount: 获取缓存个数
+Instance.remove       : 根据键值移除缓存
+Instance.clear        : 清除所有缓存
 ```
 
 * ### 清除相关 -> [CleanUtils.java][clean.java] -> [Demo][clean.demo]
@@ -318,6 +336,7 @@ compressBySampleSize            : 按采样大小压缩
 
 * ### 意图相关 -> [IntentUtils.java][intent.java]
 ```
+isIntentAvailable                : 判断意图是否可用
 getInstallAppIntent              : 获取安装 App（支持 6.0）的意图
 getUninstallAppIntent            : 获取卸载 App 的意图
 getLaunchAppIntent               : 获取打开 App 的意图
@@ -331,12 +350,15 @@ getCaptureIntent                 : 获取拍照的意图
 
 * ### 键盘相关 -> [KeyboardUtils.java][keyboard.java] -> [Demo][keyboard.demo]
 ```
-showSoftInput                     : 动态显示软键盘
-hideSoftInput                     : 动态隐藏软键盘
+showSoftInput                     : 显示软键盘
+showSoftInputUsingToggle          : 显示软键盘用 toggle
+hideSoftInput                     : 隐藏软键盘
+hideSoftInputUsingToggle          : 隐藏软键盘用 toggle
 toggleSoftInput                   : 切换键盘显示与否状态
 isSoftInputVisible                : 判断软键盘是否可见
 registerSoftInputChangedListener  : 注册软键盘改变监听器
 unregisterSoftInputChangedListener: 注销软键盘改变监听器
+fixAndroidBug5497                 : 修复安卓 5497 BUG
 fixSoftInputLeaks                 : 修复软键盘内存泄漏
 clickBlankArea2HideSoftInput      : 点击屏幕空白区域隐藏软键盘
 ```
@@ -357,6 +379,8 @@ Config.setConsoleFilter  : 设置 log 控制台过滤器
 Config.setFileFilter     : 设置 log 文件过滤器
 Config.setStackDeep      : 设置 log 栈深度
 Config.setStackOffset    : 设置 log 栈偏移
+Config.setSaveDays       : 设置 log 可保留天数
+Config.addFormatter      : 新增 log 格式化器
 log                      : 自定义 tag 的 type 日志
 v                        : tag 为类名的 Verbose 日志
 vTag                     : 自定义 tag 的 Verbose 日志
@@ -375,6 +399,14 @@ json                     : log 字符串之 json
 xml                      : log 字符串之 xml
 ```
 
+* ### MetaData 相关 -> [MetaDataUtils.java][meta_data.java] -> [Demo][meta_data.demo]
+```
+getMetaDataInApp     : 获取 application 的 meta-data 值
+getMetaDataInActivity: 获取 activity 的 meta-data 值
+getMetaDataInService : 获取 service 的 meta-data 值
+getMetaDataInReceiver: 获取 receiver 的 meta-data 值
+```
+
 * ### 网络相关 -> [NetworkUtils.java][network.java] -> [Demo][network.demo]
 ```
 openWirelessSettings  : 打开网络设置界面
@@ -391,7 +423,11 @@ isWifiAvailable       : 判断 wifi 数据是否可用
 getNetworkOperatorName: 获取移动网络运营商名称
 getNetworkType        : 获取当前网络类型
 getIPAddress          : 获取 IP 地址
-getDomainAddress      : 获取域名 ip 地址
+getDomainAddress      : 获取域名 IP 地址
+getIpAddressByWifi    : 根据 WiFi 获取网络 IP 地址
+getGatewayByWifi      : 根据 WiFi 获取网关 IP 地址
+getNetMaskByWifi      : 根据 WiFi 获取子网掩码 IP 地址
+getServerAddressByWifi: 根据 WiFi 获取服务端 IP 地址
 ```
 
 * ### 对象相关 -> [ObjectUtils.java][object.java] -> [Test][object.test]
@@ -402,6 +438,46 @@ equals        : 判断对象是否相等
 requireNonNull: 检查对象非空
 getOrDefault  : 获取非空或默认对象
 hashCode      : 获取对象哈希值
+```
+
+* ### 路径相关 -> [PathUtils.java][path.java] -> [Demo][path.demo]
+```
+getRootPath                    : 获取根路径
+getDataPath                    : 获取数据路径
+getDownloadCachePath           : 获取下载缓存路径
+getInternalAppDataPath         : 获取内存应用数据路径
+getInternalAppCodeCacheDir     : 获取内存应用代码缓存路径
+getInternalAppCachePath        : 获取内存应用缓存路径
+getInternalAppDbsPath          : 获取内存应用数据库路径
+getInternalAppDbPath           : 获取内存应用数据库路径
+getInternalAppFilesPath        : 获取内存应用文件路径
+getInternalAppSpPath           : 获取内存应用 SP 路径
+getInternalAppNoBackupFilesPath: 获取内存应用未备份文件路径
+getExternalStoragePath         : 获取外存路径
+getExternalMusicPath           : 获取外存音乐路径
+getExternalPodcastsPath        : 获取外存播客路径
+getExternalRingtonesPath       : 获取外存铃声路径
+getExternalAlarmsPath          : 获取外存闹铃路径
+getExternalNotificationsPath   : 获取外存通知路径
+getExternalPicturesPath        : 获取外存图片路径
+getExternalMoviesPath          : 获取外存影片路径
+getExternalDownloadsPath       : 获取外存下载路径
+getExternalDcimPath            : 获取外存数码相机图片路径
+getExternalDocumentsPath       : 获取外存文档路径
+getExternalAppDataPath         : 获取外存应用数据路径
+getExternalAppCachePath        : 获取外存应用缓存路径
+getExternalAppFilesPath        : 获取外存应用文件路径
+getExternalAppMusicPath        : 获取外存应用音乐路径
+getExternalAppPodcastsPath     : 获取外存应用播客路径
+getExternalAppRingtonesPath    : 获取外存应用铃声路径
+getExternalAppAlarmsPath       : 获取外存应用闹铃路径
+getExternalAppNotificationsPath: 获取外存应用通知路径
+getExternalAppPicturesPath     : 获取外存应用图片路径
+getExternalAppMoviesPath       : 获取外存应用影片路径
+getExternalAppDownloadPath     : 获取外存应用下载路径
+getExternalAppDcimPath         : 获取外存应用数码相机图片路径
+getExternalAppDocumentsPath    : 获取外存应用文档路径
+getExternalAppObbPath          : 获取外存应用 OBB 路径
 ```
 
 * ### 权限相关 -> [PermissionUtils.java][permission.java] -> [Demo][permission.demo]
@@ -420,6 +496,7 @@ request                 : 开始请求
 ```
 isPhone            : 判断设备是否是手机
 getDeviceId        : 获取设备码
+getSerial          : 获取序列号
 getIMEI            : 获取 IMEI 码
 getMEID            : 获取 MEID 码
 getIMSI            : 获取 IMSI 码
@@ -454,11 +531,12 @@ get        : 获取反射想要获取的
 
 * ### 正则相关 -> [RegexUtils.java][regex.java] -> [Test][regex.test]
 ```
-isMobileSimple : 验证手机号（简单）
-isMobileExact  : 验证手机号（精确）
+isMobileSimple : 简单验证手机号
+isMobileExact  : 精确验证手机号
 isTel          : 验证电话号码
 isIDCard15     : 验证身份证号码 15 位
-isIDCard18     : 验证身份证号码 18 位
+isIDCard18     : 简单验证身份证号码 18 位
+isIDCard18Exact: 精确验证身份证号码 18 位
 isEmail        : 验证邮箱
 isURL          : 验证 URL
 isZh           : 验证汉字
@@ -484,21 +562,29 @@ readRaw2List      : 从 raw 中按行读取字符串
 
 * ### 屏幕相关 -> [ScreenUtils.java][screen.java] -> [Demo][screen.demo]
 ```
-getScreenWidth     : 获取屏幕的宽度（单位：px）
-getScreenHeight    : 获取屏幕的高度（单位：px）
-getScreenDensity   : 获取屏幕密度
-getScreenDensityDpi: 获取屏幕密度 DPI
-setFullScreen      : 设置屏幕为全屏
-setLandscape       : 设置屏幕为横屏
-setPortrait        : 设置屏幕为竖屏
-isLandscape        : 判断是否横屏
-isPortrait         : 判断是否竖屏
-getScreenRotation  : 获取屏幕旋转角度
-screenShot         : 截屏
-isScreenLock       : 判断是否锁屏
-setSleepDuration   : 设置进入休眠时长
-getSleepDuration   : 获取进入休眠时长
-isTablet           : 判断是否是平板
+getScreenWidth             : 获取屏幕的宽度（单位：px）
+getScreenHeight            : 获取屏幕的高度（单位：px）
+getScreenDensity           : 获取屏幕密度
+getScreenDensityDpi        : 获取屏幕密度 DPI
+setFullScreen              : 设置屏幕为全屏
+setNonFullScreen           : 设置屏幕为非全屏
+toggleFullScreen           : 切换屏幕为全屏与否状态
+isFullScreen               : 判断屏幕是否为全屏
+setLandscape               : 设置屏幕为横屏
+setPortrait                : 设置屏幕为竖屏
+isLandscape                : 判断是否横屏
+isPortrait                 : 判断是否竖屏
+getScreenRotation          : 获取屏幕旋转角度
+screenShot                 : 截屏
+isScreenLock               : 判断是否锁屏
+setSleepDuration           : 设置进入休眠时长
+getSleepDuration           : 获取进入休眠时长
+isTablet                   : 判断是否是平板
+adaptScreen4VerticalSlide  : 适配垂直滑动的屏幕
+adaptScreen4HorizontalSlide: 适配水平滑动的屏幕
+cancelAdaptScreen          : 取消适配屏幕
+restoreAdaptScreen         : 恢复适配屏幕
+isAdaptScreen              : 是否适配屏幕
 ```
 
 * ### SD 卡相关 -> [SDCardUtils.java][sdcard.java] -> [Demo][sdcard.demo]
@@ -563,7 +649,6 @@ setLineHeight     : 设置行高
 setQuoteColor     : 设置引用线的颜色
 setLeadingMargin  : 设置缩进
 setBullet         : 设置列表标记
-setIconMargin     : 设置图标
 setFontSize       : 设置字体尺寸
 setFontProportion : 设置字体比例
 setFontXProportion: 设置字体横向比例
@@ -697,7 +782,8 @@ cancel         : 取消吐司显示
 
 * ### URI 相关 -> [UriUtils.java][uri.java]
 ```
-getUriForFile: 获取文件 URI
+file2Uri: file 转 uri
+uri2File: uri 转 file
 ```
 
 * ### 压缩相关 -> [ZipUtils.java][zip.java] -> [Test][zip.test]
@@ -721,8 +807,14 @@ getComments       : 获取压缩文件中的注释链表
 [bar.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/BarUtils.java
 [bar.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/bar/BarActivity.java
 
-[cache.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CacheUtils.java
-[cache.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/CacheUtilsTest.java
+[cache_disk.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CacheDiskUtils.java
+[cache_disk.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/CacheDiskUtilsTest.java
+
+[cache_double.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CacheDoubleUtils.java
+[cache_double.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/CacheDoubleUtilsTest.java
+
+[cache_memory.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CacheMemoryUtils.java
+[cache_memory.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/CacheMemoryUtilsTest.java
 
 [clean.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/CleanUtils.java
 [clean.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/clean/CleanActivity.java
@@ -766,11 +858,17 @@ getComments       : 获取压缩文件中的注释链表
 [log.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/LogUtils.java
 [log.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/log/LogActivity.java
 
+[meta_data.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/MetaDataUtils.java
+[meta_data.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/meta_data/MetaDataActivity.java
+
 [network.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/NetworkUtils.java
 [network.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/network/NetworkActivity.java
 
 [object.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ObjectUtils.java
 [object.test]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/test/java/com/blankj/utilcode/util/ObjectUtilsTest.java
+
+[path.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/PathUtils.java
+[path.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/path/PathActivity.java
 
 [permission.java]: https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/PermissionUtils.java
 [permission.demo]: https://github.com/Blankj/AndroidUtilCode/blob/master/app/src/main/java/com/blankj/androidutilcode/feature/core/permission/PermissionActivity.java
